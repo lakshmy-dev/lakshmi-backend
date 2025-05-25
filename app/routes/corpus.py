@@ -4,7 +4,7 @@ from typing import List, Optional, Dict, Any
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../lib')))
 
-from middle_layer.corpus_engine import calculate_corpus
+from .middle_layer.corpus_engine import calculate_corpus
 
 router = APIRouter()
 

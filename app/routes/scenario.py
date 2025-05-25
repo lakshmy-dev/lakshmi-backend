@@ -6,12 +6,12 @@ from services.gpt_service import GPTService
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.database import get_db
-from app.models.scenario import Scenario as ScenarioModel
-from app.models.user_profile import UserProfile as UserProfileModel
-from app.schemas.scenario import Scenario, ScenarioCreate
-from app.logic.scenario_engine import goal_retirement
-from app.utils.lakshmi_prompt_builder import build_lakshmi_prompt  # ✅ Lakshmi tone layer
+from database import get_db
+from models.scenario import Scenario as ScenarioModel
+from models.user_profile import UserProfile as UserProfileModel
+from schemas.scenario import Scenario, ScenarioCreate
+from logic.scenario_engine import goal_retirement
+from utils.lakshmi_prompt_builder import build_lakshmi_prompt  # ✅ Lakshmi tone layer
 
 router = APIRouter(prefix="/scenarios", tags=["Scenarios"])
 
