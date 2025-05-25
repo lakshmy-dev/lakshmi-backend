@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from typing import Dict
 from operator import itemgetter
 from app.middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
-from app.services.tag_matcher_service import TagMatcherService
+from lib.services.tag_matcher_service import TagMatcherService
 
 # Load environment variables
 load_dotenv()
