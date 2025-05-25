@@ -17,7 +17,6 @@ idna==3.10
 Jinja2==3.1.6
 MarkupSafe==3.0.2
 numpy==2.0.2
-openai==1.24.1
 packaging==25.0
 pinecone==6.0.2
 pinecone-plugin-interface==0.0.7
@@ -38,7 +37,4 @@ typing_extensions==4.13.2
 urllib3==2.4.0
 watchfiles==1.0.5
 websockets==15.0.1
-transformers==4.41.2
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.3.0+cpu
-
+openai==1.30.1
