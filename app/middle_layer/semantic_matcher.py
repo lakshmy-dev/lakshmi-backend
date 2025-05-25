@@ -1,16 +1,22 @@
 import os
-import openai
-from pinecone import Pinecone, ServerlessSpec
-from openai import OpenAI
-
-from dotenv import load_dotenv
+import sys
 from typing import Dict
 from operator import itemgetter
+
+# Add 'lib' directory to path for service imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'lib')))
+
+from dotenv import load_dotenv
+import openai
+from openai import OpenAI
+from pinecone import Pinecone, ServerlessSpec
+
 from app.middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
-from lib.services.tag_matcher_service import TagMatcherService
+from services.tag_matcher_service import TagMatcherService  # fixed relative import
 
 # Load environment variables
 load_dotenv()
+
 
 # API and model setup
 openai.api_key = os.getenv("OPENAI_API_KEY")
