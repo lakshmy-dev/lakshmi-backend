@@ -12,7 +12,7 @@ from openai import OpenAI
 from pinecone import Pinecone, ServerlessSpec
 
 from app.middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
-from services.tag_matcher_service import TagMatcherService  # fixed relative import
+from tag_matcher_service import TagMatcherService  # fixed relative import
 
 # Load environment variables
 load_dotenv()
