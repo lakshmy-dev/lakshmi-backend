@@ -8,7 +8,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from typing import List, Dict
-from app.middle_layer.semantic_matcher import find_best_tag  # updated import path
+from .middle_layer.semantic_matcher import find_best_tag  # updated import path
 
 router = APIRouter()
 
