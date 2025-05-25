@@ -3,8 +3,8 @@ import sys
 from typing import Dict
 from operator import itemgetter
 
-# Add 'lib' directory to path for service imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'lib')))
+# ✅ Add absolute lib path to sys.path for Render compatibility
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "lib")))
 
 from dotenv import load_dotenv
 import openai
@@ -12,7 +12,7 @@ from openai import OpenAI
 from pinecone import Pinecone, ServerlessSpec
 
 from app.middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
-from tag_matcher_service import TagMatcherService  # fixed relative import
+from lib.services.tag_matcher_service import TagMatcherService  # ✅ FIXED IMPORT
 
 # Load environment variables
 load_dotenv()
