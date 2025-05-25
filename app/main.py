@@ -1,19 +1,19 @@
 import sys
 import os
 
-# Add the /lakshmi_ai/lib directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
+# Add the middle_layer folder to sys.path (now inside app)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'middle_layer')))
 
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-# ✅ Use relative imports instead of 'from app ...'
-from . import database
-from .models.user_input import UserInput
-from .schemas.user_input import UserInputCreate
-from .semantic_api import router as semantic_router
-from .routes import user_profile, scenario, corpus
-from .database import Base, engine, get_db
+# ✅ Correct relative imports for Render
+import database
+from models.user_input import UserInput
+from schemas.user_input import UserInputCreate
+from semantic_api import router as semantic_router
+from routes import user_profile, scenario, corpus
+from database import Base, engine, get_db
 
 Base.metadata.create_all(bind=engine)
 
