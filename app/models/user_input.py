@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from database import Base
+from app.database import Base
 
 class UserInput(Base):
     __tablename__ = "user_inputs"

@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-import database
-from models.user_input import UserInput
-from schemas.user_input import UserInputCreate
-from semantic_api import router as semantic_router
-from routes import user_profile, scenario, corpus
-from database import Base, engine, get_db
+from app import database
+from app.models.user_input import UserInput
+from app.schemas.user_input import UserInputCreate
+from app.semantic_api import router as semantic_router
+from app.routes import user_profile, scenario, corpus
+from app.database import Base, engine, get_db
 
 Base.metadata.create_all(bind=engine)
 

@@ -12,7 +12,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base = declarative_base()
 
-import models
+from app import models
 
 # ✅ ADD THIS BELOW
 def get_db():
