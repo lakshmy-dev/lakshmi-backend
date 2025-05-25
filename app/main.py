@@ -1,19 +1,12 @@
-import sys
-import os
-
-# Add the middle_layer folder to sys.path (now inside app)
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'middle_layer')))
-
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-# ✅ Correct relative imports for Render
-import database
-from models.user_input import UserInput
-from schemas.user_input import UserInputCreate
-from semantic_api import router as semantic_router
-from routes import user_profile, scenario, corpus
-from database import Base, engine, get_db
+from app import database
+from app.models.user_input import UserInput
+from app.schemas.user_input import UserInputCreate
+from app.semantic_api import router as semantic_router
+from app.routes import user_profile, scenario, corpus
+from app.database import Base, engine, get_db
 
 Base.metadata.create_all(bind=engine)
 
