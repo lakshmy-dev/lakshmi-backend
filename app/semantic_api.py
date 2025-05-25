@@ -2,13 +2,17 @@
 
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "lib")))
+
+# ✅ Add the lib folder to Python path (relative to /app/)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
 
 from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from typing import List, Dict
-from app.middle_layer.semantic_matcher import find_best_tag  # updated import path
+
+# ✅ Clean import from lib/middle_layer
+from middle_layer.semantic_matcher import find_best_tag
 
 router = APIRouter()
 
