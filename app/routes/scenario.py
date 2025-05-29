@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
-from services.gpt_service import GPTService
+from app.services.gpt_service import GPTService
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session

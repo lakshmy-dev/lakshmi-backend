@@ -55,7 +55,7 @@ class TagMatcherService:
             {"entailment": self.tier3_entailment, "contradiction": self.tier3_contradiction, "label": "Tier 3"},
         ]
 
-        from middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
+        from app.middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
         from operator import itemgetter
 
         user_input_lower = user_input.lower()

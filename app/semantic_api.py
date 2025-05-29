@@ -12,7 +12,7 @@ from pydantic import BaseModel
 from typing import List, Dict
 
 # ✅ Clean import from lib/middle_layer
-from middle_layer.semantic_matcher import find_best_tag
+from app.middle_layer.semantic_matcher import find_best_tag
 
 router = APIRouter()
 

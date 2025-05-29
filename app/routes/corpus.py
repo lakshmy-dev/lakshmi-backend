@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 
-from middle_layer.corpus_engine import calculate_corpus
+from app.middle_layer.corpus_engine import calculate_corpus
 
 router = APIRouter()
 

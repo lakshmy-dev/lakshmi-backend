@@ -1,6 +1,9 @@
+# File: app/services/gpt_service.py
+
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+from app.utils.lakshmi_prompt_builder import build_lakshmi_prompt
 
 load_dotenv()  # Load environment variables from .env
 
@@ -9,41 +12,53 @@ class GPTService:
         self.api_key = os.getenv("OPENAI_API_KEY")
         self.client = OpenAI(api_key=self.api_key)
 
-    def generate(self, prompt_data: dict, model: str = "gpt-4"):
+    def generate(
+        self,
+        messages: list,
+        tags: dict = {},
+        emotions: dict = {},
+        user_name: str = "You",
+        scenario_type: str = None,
+        inputs: dict = {},
+        model: str = "gpt-4"
+    ) -> str:
         """
         Generate a response using OpenAI's Chat Completions API.
 
-        prompt_data: {
-            "system": "Lakshmi prompt with context...",
-            "messages": [
-                {"role": "user", "content": "..."},
-                ...
-            ]
-        }
+        Args:
+            messages: List of chat history messages.
+            tags: Semantic tags (from Pinecone/NLI).
+            emotions: Detected emotion scores.
+            user_name: Optional name for personalization.
+            scenario_type: Optional financial goal context.
+            inputs: Optional financial inputs (age, savings, etc.)
         """
         try:
-            system_prompt = prompt_data.get("system", "")
-            messages = prompt_data.get("messages", [])
+            # ✅ Build Lakshmy's tone-rich prompt
+            prompt_data = build_lakshmi_prompt(
+                messages=messages,
+                tags=tags,
+                emotions=emotions,
+                user_name=user_name,
+                scenario_type=scenario_type,
+                inputs=inputs
+            )
 
-            # 🧠 Validate format
-            if not isinstance(system_prompt, str):
-                raise ValueError("Invalid 'system' prompt format")
-            if not isinstance(messages, list) or not all(isinstance(m, dict) for m in messages):
-                raise ValueError("Invalid 'messages' format")
+            all_messages = [{"role": "system", "content": prompt_data["system"]}] + prompt_data["messages"]
 
-            all_messages = [{"role": "system", "content": system_prompt}] + messages
-
-            # 🚀 Call OpenAI Chat Completion
             response = self.client.chat.completions.create(
                 model=model,
                 messages=all_messages,
                 max_tokens=500,
-                temperature=0.58,  # ✅ Updated to preferred creative/controlled balance
+                temperature=0.58,
                 timeout=30
             )
+            print(f"💬 GPT content type: {type(response.choices[0].message.content)}")
+            print(f"💬 GPT raw: {response.choices[0].message.content}")
 
-            return response.choices[0].message.content.strip()
+
+            return str(response.choices[0].message.content).strip()
 
         except Exception as e:
-            print("OpenAI API Error:", e)
+            print("❌ OpenAI API Error:", e)
             return "Summary unavailable due to OpenAI API error."

@@ -7,38 +7,33 @@ from operator import itemgetter
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "lib")))
 
 from dotenv import load_dotenv
+import openai
 from openai import OpenAI
 from pinecone import Pinecone, ServerlessSpec
 
 from app.middle_layer.contradiction_checker import is_contradiction_or_weak_entailment
-from app.services.tag_matcher_service import TagMatcherService  # ✅ FINAL FIX
+from tag_matcher_service import TagMatcherService  # ✅ FINAL FIX
 
-# ✅ Load environment variables
+# Load environment variables
 load_dotenv()
 
-# ✅ Read keys
-openai_api_key = os.getenv("OPENAI_API_KEY")
+
+
+# API and model setup
+openai.api_key = os.getenv("OPENAI_API_KEY")
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
 pinecone_env = os.getenv("PINECONE_ENV", "us-east-1")
-
-# ✅ Fail fast if missing
-if not openai_api_key:
-    raise ValueError("❌ OPENAI_API_KEY is not set in .env")
-if not pinecone_api_key:
-    raise ValueError("❌ PINECONE_API_KEY is not set in .env")
-
-# ✅ Semantic config
 index_name = "semantic-tags"
 embedding_model = "text-embedding-3-small"
 embedding_dimensions = 1536
 match_threshold = 0.58
 
-# ✅ Initialize clients
-client = OpenAI(api_key=openai_api_key)
+# Initialize OpenAI and Pinecone clients
+client = OpenAI(api_key=openai.api_key)
 pc = Pinecone(api_key=pinecone_api_key)
 index = pc.Index(index_name)
 
-# ✅ Tag matcher instance
+# Initialize tag matcher service
 tag_matcher = TagMatcherService(match_threshold)
 
 
